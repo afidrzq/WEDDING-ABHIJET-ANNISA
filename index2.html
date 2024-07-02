@@ -99,15 +99,15 @@
 </div>
 
 </div>
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video1" width="640" height="480" autoplay muted>
   <source src="Hal1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video2" width="640" height="480" autoplay muted>
   <source src="Hal2.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video3" width="640" height="480" autoplay muted>
   <source src="Hal3.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -115,7 +115,7 @@
 <div class="videoMaps">
 
   
-  <video id="myVideo" width="640" height="480" autoplay muted>
+  <video id="video4" width="640" height="480" autoplay muted>
     <source src="Hal4.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -126,15 +126,15 @@
   </div>
 </div>
   
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video5" width="640" height="480" autoplay muted>
   <source src="Hal5.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video6" width="640" height="480" autoplay muted>
   <source src="Hal6.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="myVideo" width="640" height="480" autoplay muted>
+<video id="video7" width="640" height="480" autoplay muted>
   <source src="Hal8.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -171,19 +171,35 @@
               }
             });
         });
+var video1 = document.getElementById('video1');
+var video2 = document.getElementById('video2');
+var video3 = document.getElementById('video3');
+var video4 = document.getElementById('video4');
+var video5 = document.getElementById('video5');
+var video6 = document.getElementById('video6');
+var video7 = document.getElementById('video8');
+
+document.addEventListener('DOMContentLoaded', function() {
+    var videos = [];
+    for (var i = 1; i <= 7; i++) {
+        videos.push(document.getElementById('video' + i));
+    }
+
+    function playNextVideo(index) {
+        if (index < videos.length) {
+            var currentVideo = videos[index];
+            currentVideo.play();
+            currentVideo.onended = function() {
+                playNextVideo(index + 1);
+            };
+        }
+    }
+
+    videos[0].addEventListener('loadeddata', function() {
+        playNextVideo(1); // Mulai memutar video kedua setelah video pertama selesai dimuat
+    });
+});
+
 </script>
-
-<!--
-  <img src="1.png" alt="Deskripsi gambar">
-  <img src="2.png" alt="Deskripsi gambar">
-  <img src="3.png" alt="Deskripsi gambar">
-  <img src="4.png" alt="Deskripsi gambar">
-  <img src="5.png" alt="Deskripsi gambar">
-  <img src="7.png" alt="Deskripsi gambar">
-  <img src="8.png" alt="Deskripsi gambar">
-  <img src="9.png" alt="Deskripsi gambar">
-
-  -->
-  
 </body>
 </html>
