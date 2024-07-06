@@ -99,15 +99,15 @@
 </div>
 
 </div>
-<video id="video1" width="640" height="480" autoplay muted>
+<video id="video1" width="640" height="480" autoplay muted preload="none">
   <source src="Hal1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video2" width="640" height="480" autoplay muted>
+<video id="video2" width="640" height="480" autoplay muted preload="none">
   <source src="Hal2.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video3" width="640" height="480" autoplay muted>
+<video id="video3" width="640" height="480" autoplay muted preload="none">
   <source src="Hal3.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -115,7 +115,7 @@
 <div class="videoMaps">
 
   
-  <video id="video4" width="640" height="480" autoplay muted>
+  <video id="video4" width="640" height="480" autoplay muted preload="none">
     <source src="Hal4.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -126,15 +126,15 @@
   </div>
 </div>
   
-<video id="video5" width="640" height="480" autoplay muted>
+<video id="video5" width="640" height="480" autoplay muted preload="none">
   <source src="Hal5.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video6" width="640" height="480" autoplay muted>
+<video id="video6" width="640" height="480" autoplay muted preload="none">
   <source src="Hal6.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video7" width="640" height="480" autoplay muted>
+<video id="video7" width="640" height="480" autoplay muted preload="none">
   <source src="Hal8.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -143,9 +143,9 @@
 </div>
 <img src="Hal9.png" alt="">
 <script>
-  
+
 document.addEventListener('DOMContentLoaded', () => {
-    const videos = document.querySelectorAll('video');
+    const videos = document.getElementsByTagName("video");
     let currentIndex = 0;
 
     function loadNextVideo() {
