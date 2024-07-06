@@ -85,6 +85,23 @@
             cursor: pointer;
         }
 
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .loaded {
+            opacity: 1;
+        }
+        .videoMaps {
+            position: relative;
+        }
+        .maps {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
   </style>
 </head>
 
@@ -97,71 +114,90 @@
         Your browser does not support the audio element.
     </audio>
 </div>
-
+<div class="audio-container">
+  <img src="iconmusic.png" alt="Play Audio" class="audio-icon" id="audioIcon">
+  <audio id="audio" controls autoplay>
+      <source src="audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
 </div>
-<video id="video1" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal1.mp4" type="video/mp4">
+
+<video id="video1" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal1.mp4">
+  <source data-src="Hal1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video2" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal2.mp4" type="video/mp4">
+<video id="video2" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal2.mp4">
+  <source data-src="Hal2.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video3" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal3.mp4" type="video/mp4">
+<video id="video3" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal3.mp4">
+  <source data-src="Hal3.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 <div class="videoMaps">
-
-  
-  <video id="video4" width="640" height="480" autoplay muted preload="none">
-    <source src="Hal4.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+  <video id="video4" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal4.mp4">
+      <source data-src="Hal4.mp4" type="video/mp4">
+      Your browser does not support the video tag.
   </video>
   <div class="maps">
-    <a href="https://www.google.com/maps/search/?api=1&query=RVQF+3F7+Jl.+Ranjau,+RT.13%2FRW.4,+Sumur+Batu,+Kec.+Kemayoran,+Kota+Jakarta+Pusat,+Daerah+Khusus+Ibukota+Jakarta+10640,+Indonesia" target="_blank">
-      <button class="btnMaps">Buka di Google Maps</button>
-    </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=RVQF+3F7+Jl.+Ranjau,+RT.13%2FRW.4,+Sumur+Batu,+Kec.+Kemayoran,+Kota+Jakarta+Pusat,+Daerah+Khusus+Ibukota+Jakarta+10640,+Indonesia" target="_blank">
+          <button class="btnMaps">Buka di Google Maps</button>
+      </a>
   </div>
 </div>
-  
-<video id="video5" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal5.mp4" type="video/mp4">
+
+<video id="video5" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal5.mp4">
+  <source data-src="Hal5.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video6" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal6.mp4" type="video/mp4">
+<video id="video6" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal6.mp4">
+  <source data-src="Hal6.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<video id="video7" width="640" height="480" autoplay muted preload="none">
-  <source src="Hal8.mp4" type="video/mp4">
+<video id="video7" class="lazy" width="640" height="480" autoplay muted preload="none" data-src="Hal8.mp4">
+  <source data-src="Hal8.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 <div class="video-container">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/RAUri2E4jsU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe class="lazy" width="560" height="315" data-src="https://www.youtube.com/embed/RAUri2E4jsU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
-<img src="Hal9.png" alt="">
+<img class="lazy" data-src="Hal9.png" alt="">
+
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const lazyElements = document.querySelectorAll('.lazy');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const videos = document.getElementsByTagName("video");
-    let currentIndex = 0;
+      const lazyLoad = (entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const element = entry.target;
 
-    function loadNextVideo() {
-        if (currentIndex < videos.length) {
-            const video = videos[currentIndex];
-            video.preload = 'auto';
-            video.addEventListener('loadeddata', () => {
-                currentIndex++;
-                loadNextVideo();
-            }, { once: true });
-            video.load();
-        }
-    }
+                  if (element.tagName === 'VIDEO') {
+                      const source = element.querySelector('source');
+                      source.src = source.dataset.src;
+                      element.load();
+                  } else if (element.tagName === 'IMG' || element.tagName === 'IFRAME') {
+                      element.src = element.dataset.src;
+                  }
 
-    loadNextVideo();
-});
+                  element.classList.remove('lazy');
+                  element.classList.add('loaded');
+                  observer.unobserve(element);
+              }
+          });
+      };
+
+      const observer = new IntersectionObserver(lazyLoad, {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+      });
+
+      lazyElements.forEach(element => {
+          observer.observe(element);
+      });
+  });
 
   var audio = document.getElementById('audio');
   var audioIcon = document.getElementById('audioIcon');
