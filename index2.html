@@ -99,10 +99,10 @@
 </head>
 <body>
 
-<div class="audio-container">
+<div class="audio-container" >
   <img src="iconmusic.png" alt="Play Audio" class="audio-icon" id="audioIcon">
   <audio id="audio" controls autoplay>
-      <source src="https://od.lk/s/NTdfOTI0NjYwNjlf/audio.mp3" type="audio/mp3">
+      <source src="https://od.lk/s/NTdfOTI0NjYxMTFf/audio.weba">
       Your browser does not support the audio element.
   </audio>
 </div>
@@ -188,17 +188,15 @@
   var audioIcon = document.getElementById('audioIcon');
 
  audioIcon.addEventListener('click', function() {
-                audio.play() ? audio.pause() : audio.play();
-              
-                audioIcon.addEventListener('click', function() {
+         
                if (audio.paused) { 
-                audio.play(); }
+                audio.play(); 
+                audioIcon.src = 'iconmusic.png';}
               else if (audio.play){
                 audio.pause();
+                audioIcon.src = 'iconpause.png';
               }
             });
-        });
-        
 </script>
 </body>
 </html>
